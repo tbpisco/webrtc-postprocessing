@@ -1,27 +1,26 @@
 class WebGLView {
 
-    constructor(element, chroma, shader){
+    constructor(element, canvasSize, holder, shader){
+        this.canvasSize = canvasSize;
+        this.holder = holder;
         this.shader = shader;
-        this.chroma = chroma;
         this.setCurrentTexture(element);
         this.init();
     }
 
     init(){
 
-        let canvas = WebGLUtils.createCanvas("webgl-canvas", document.body, {w:640/2, h:480/2});
+        let canvas = WebGLUtils.createCanvas("webgl-canvas", this.holder, this.canvasSize);
         this.gl = WebGLUtils.getGLContext(canvas);
         this.texture = new Texture().create( this.gl, this.getCurrentTexture() );
-        this.textureChroma = new Texture().create( this.gl, this.chroma );
-        
-        this.createQuad();
+        this.setupVerticesAndTexture();
         this.configureShader(this.shader);
-        this.postProcessBind();
+        this.setupAttributesAndUniform();
+
         this.renderLoop();
     }
 
-    createQuad(){
-    
+    setupVerticesAndTexture(){
 
         let textureVertices = [ 
           
@@ -56,6 +55,7 @@ class WebGLView {
         this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(textureCoords),  this.gl.STATIC_DRAW);
 
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, null);
+
       };
       
       configureShader(id){
@@ -85,7 +85,7 @@ class WebGLView {
     
     };
 
-    postProcessBind(){
+    setupAttributesAndUniform(){
 
         this.gl.useProgram(this.shaderPostProcess);
 
@@ -110,7 +110,7 @@ class WebGLView {
         
     };
       
-    postProcessDraw() {
+    draw() {
     
         this.gl.bindTexture(this.gl.TEXTURE_2D, this.texture);
         this.gl.texImage2D(this.gl.TEXTURE_2D, 0, this.gl.RGBA, this.gl.RGBA, this.gl.UNSIGNED_BYTE, this.getCurrentTexture());
@@ -126,10 +126,14 @@ class WebGLView {
         return this.currentTexture;
     };
 
+    updateTexture(value){
+        this.setCurrentTexture(value);
+    }
+
     renderLoop(){
     
         requestAnimFrame(this.renderLoop.bind(this));
-        this.postProcessDraw();
+        this.draw();
     
     };
 

@@ -3,6 +3,21 @@
 class App {
 
     constructor(){
+
+        this.view = [];
+
+        ImageLoader.load("images/color.jpg")
+                         .then((image) => {this.setupViews(image)})
+                         .catch(this.logError);
+
+    }
+
+    setupViews(element){
+
+        this.view.push(new WebGLView(element, {w:640/2, h:480/2}, document.body, "channel-red"));
+        this.view.push(new WebGLView(element, {w:640/2, h:480/2}, document.body, "channel-green"));
+        this.view.push(new WebGLView(element, {w:640/2, h:480/2}, document.body, "channel-blue"));
+
         this.initVideo();
     }
 
@@ -10,31 +25,13 @@ class App {
 
         var webRTCVideo = new WebRTCVideoView(document.querySelector("#container"));
         webRTCVideo.connect()
-            .then((video) => {
-                this.init(video);
-            })
-            .catch(this.useSampleImage);
-    }
-
-    useSampleImage(){
-
-        ImageLoader.load("images/sample.jpg")
-            .then((image) => {
-                this.init(image);
-            })
-            .catch(this.logError);
-    }
-
-	init(element){
-
-        ImageLoader.load("images/cubos.jpg")
-            .then((image) => {
-                self.webGLView = new WebGLView(element, image, "channel-red");
-                self.webGLView = new WebGLView(element, image, "channel-green");
-                self.webGLView = new WebGLView(element, image, "channel-blue");
-            })
+            .then((video) => {this.updateViewsTexture(video)})
             .catch(this.logError);
 
+    }
+
+	updateViewsTexture(video){
+        this.view.forEach((element) => element.updateTexture(video));
     }
 
     logError(error){
