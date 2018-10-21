@@ -6,17 +6,18 @@ class App {
 
         this.view = [];
 
+        this.containerElement = document.querySelector("#container");
+
         ImageLoader.load("images/color.jpg")
                          .then((image) => {this.setupViews(image)})
                          .catch(this.logError);
-
     }
 
     setupViews(element){
 
-        this.view.push(new WebGLView(element, {w:640/2, h:480/2}, document.body, "channel-red"));
-        this.view.push(new WebGLView(element, {w:640/2, h:480/2}, document.body, "channel-green"));
-        this.view.push(new WebGLView(element, {w:640/2, h:480/2}, document.body, "channel-blue"));
+        this.view.push(new WebGLView(element, {w:640/2, h:480/2}, this.containerElement, "channel-red"));
+        this.view.push(new WebGLView(element, {w:640/2, h:480/2}, this.containerElement, "channel-green"));
+        this.view.push(new WebGLView(element, {w:640/2, h:480/2}, this.containerElement, "channel-blue"));
 
         this.initVideo();
     }

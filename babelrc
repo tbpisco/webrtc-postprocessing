@@ -1,0 +1,4 @@
+{
+    "plugins": ["transform-es2015-classes"],
+    "presets": ["babel-preset-env"]
+}

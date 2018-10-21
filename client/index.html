@@ -3,15 +3,28 @@
     
     <style>
     html,body{
-                margin:0;
-                padding:0;
-                overflow: hidden;
+        margin:0;
+        padding:0;
+        overflow: hidden;
+        background-color: #1b1a1a;
     }
     
-    #container{
+    #container video{
         display: none;
     }
-    </style>
+
+    #container{
+        text-align: center;
+        top: 50%;
+        -webkit-transform: translateY(50%);
+        transform: translateY(50%);
+    }
+
+    #container canvas{
+        border: 1em solid #1b1a1a;
+    }
+
+    </style> 
     </head>
     <body>
     
@@ -26,13 +39,7 @@
         </div>
         
     
-    
-    <script src="js/WebGLUtils.js"></script>
-    <script src="js/WebRTCVideoView.js"></script>
-    <script src="js/WebGLView.js"></script>
-    <script src="js/ImageLoader.js"></script>
-    <script src="js/Texture.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/script.js"></script>
       
     <script id="post-common-vs" type="x-shader/x-vertex">
         attribute vec2 aVertexPositionTexture;
