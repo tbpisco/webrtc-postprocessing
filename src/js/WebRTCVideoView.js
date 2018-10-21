@@ -18,20 +18,28 @@ class WebRTCVideoView {
     connect(){
         return new Promise((resolve, reject) => {
             this.view.onloadedmetadata = function(){ 
+                this.view.play();
                 resolve(this.view);
             }.bind(this);
-    
-            if (navigator.mediaDevices.getUserMedia) { 
-    
+
+            if (navigator && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) { 
                 navigator.mediaDevices.getUserMedia({video: true})
                     .then(this.addStream.bind(this))
                     .catch(() => reject("Webcam not found, please, check your hardware and try again."));
+            } else {
+                reject("Please try from another device.")
             }
         });
     }
 
     addStream(stream){
-        this.view.srcObject = stream;
+
+        if("srcObject" in this.view) {
+            this.view.srcObject = stream;
+        } else {
+           this.view.src = window.URL.createObjectURL(stream);
+        }
     }
 
 }
+  
