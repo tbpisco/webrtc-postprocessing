@@ -23,7 +23,7 @@ class WebRTCVideoView {
             }.bind(this);
 
             if (navigator && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) { 
-                navigator.mediaDevices.getUserMedia({video: true})
+                navigator.mediaDevices.getUserMedia({video:{ width: 320, height: 240 }})
                     .then(this.addStream.bind(this))
                     .catch(() => reject("Webcam not found, please, check your hardware and try again."));
             } else {
