@@ -24,8 +24,8 @@ class WebRTCVideoView {
             if (navigator.mediaDevices.getUserMedia) { 
     
                 navigator.mediaDevices.getUserMedia({video: true})
-                .then(this.addStream.bind(this))
-                .catch(this.reject);
+                    .then(this.addStream.bind(this))
+                    .catch(() => reject("Webcam not found, please, check your hardware and try again."));
             }
         });
     }

@@ -10,7 +10,7 @@ class App {
 
         ImageLoader.load("images/color.jpg")
                          .then((image) => {this.setupViews(image)})
-                         .catch(this.logError);
+                         .catch((error) => {this.logError(error)});
     }
 
     setupViews(element){
@@ -27,7 +27,7 @@ class App {
         var webRTCVideo = new WebRTCVideoView(document.querySelector("#container"));
         webRTCVideo.connect()
             .then((video) => {this.updateViewsTexture(video)})
-            .catch(this.logError);
+            .catch((error) => {this.logError(error)});
 
     }
 
@@ -36,7 +36,7 @@ class App {
     }
 
     logError(error){
-        console.log(error);
+        alert(error);
     }
 
 }
