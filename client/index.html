@@ -1,8 +1,4 @@
-<html lang="en"><head>
-    <meta charset="UTF-8">
-    
-    <style>
-    html,body{
+<html lang="en"><head><meta charset="UTF-8"><style>html,body{
         margin:0;
         padding:0;
         overflow: hidden;
@@ -18,6 +14,7 @@
     #container{
         text-align: center;
         top: 50%;
+        width: 100%;
         -webkit-transform: translateY(-50%);
         transform: translateY(-50%);
         position: absolute;
@@ -26,28 +23,7 @@
     #container canvas{
         border: 1em solid #1b1a1a;
         max-width: 30%;
-    }
-
-
-    </style> 
-    </head>
-    <body>
-    
-    
-        <title>WEBRTC - WEBGL</title>
-        <meta charset="utf-8">
-    
-    
-    
-        <div id="container">
-           
-        </div>
-        
-    
-    <script src="js/script.js"></script>
-      
-    <script id="post-common-vs" type="x-shader/x-vertex">
-        attribute vec2 aVertexPositionTexture;
+    }</style></head><body><title>WEBRTC - WEBGL</title><meta charset="utf-8"><div id="container"></div><script id="post-common-vs" type="x-shader/x-vertex">attribute vec2 aVertexPositionTexture;
         attribute vec2 aVertexTextureCoords;
         
         varying vec2 vTextureCoord;
@@ -55,12 +31,7 @@
         void main(void) {
             vTextureCoord = aVertexTextureCoords;
             gl_Position = vec4(aVertexPositionTexture, 0.0, 1.0);
-        }
-    </script>
-    
-
-    <script id="channel-red" type="x-shader/x-fragment">
-        precision highp float;
+        }</script><script id="channel-red" type="x-shader/x-fragment">precision highp float;
         
         uniform sampler2D uSampler;
         
@@ -71,11 +42,7 @@
             vec4 frameColor = texture2D(uSampler, vTextureCoord);
             gl_FragColor = vec4(frameColor.r, frameColor.r , frameColor.r , frameColor.a) * vec4(1,0,0,1);
             
-        }
-    </script>
-
-    <script id="channel-green" type="x-shader/x-fragment">
-        precision highp float;
+        }</script><script id="channel-green" type="x-shader/x-fragment">precision highp float;
         
         uniform sampler2D uSampler;
         
@@ -86,11 +53,7 @@
             vec4 frameColor = texture2D(uSampler, vTextureCoord);
             gl_FragColor = vec4(frameColor.g, frameColor.g , frameColor.g , frameColor.a) * vec4(0,1,0,1);
             
-        }
-    </script>
-
-    <script id="channel-blue" type="x-shader/x-fragment">
-        precision highp float;
+        }</script><script id="channel-blue" type="x-shader/x-fragment">precision highp float;
         
         uniform sampler2D uSampler;
         
@@ -101,9 +64,4 @@
             vec4 frameColor = texture2D(uSampler, vTextureCoord);
             gl_FragColor = vec4(frameColor.b, frameColor.b , frameColor.b , frameColor.a) * vec4(0,0,1,1);
             
-        }
-    </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.4.0/gl-matrix-min.js"></script>
-    
-    </body></html>
+        }</script><script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.4.0/gl-matrix-min.js"></script><script defer="defer" src="js/game.894762d6a15a5ca892fb.js?894762d6a15a5ca892fb"></script></body></html>
